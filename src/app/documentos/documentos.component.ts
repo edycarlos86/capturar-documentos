@@ -63,64 +63,30 @@ export class DocumentosComponent {
 
 
 
-// src/app/documentos/documentos.component.ts
+// documentos.component.ts
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-documentos',
-   imports: [CommonModule, FormsModule],
-  templateUrl: './documentos.component.html',
-  styleUrls: ['./documentos.component.css'],
-  standalone: true,
-
+  imports: [CommonModule, FormsModule],
+  templateUrl: './documentos.component.html'
 })
 export class DocumentosComponent {
-  tipoDocumentoSelecionado: string = '';
-  documentos: { tipo: string; arquivo: File; preview: string | null }[] = [];
+  documentos = {
+    rg: false,
+    cnh: false,
+    cartaocnpj: false,
+    contratosocial: false,
+    ataeleicao: false
+  };
 
-  tipos = [
-    { value: 'rg', label: 'RG' },
-    { value: 'cnh', label: 'CNH' },
-    { value: 'selfie', label: 'Selfie com documento' },
-    { value: 'contratosocial', label: 'Contrato Social' },
-    { value: 'cartaocnpj', label: 'Cartão CNPJ' },
-    { value: 'ataeleicao', label: 'Ata de Eleição' },
-  ];
+  constructor(private router: Router) {}
 
-  aoSelecionarArquivo(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length || !this.tipoDocumentoSelecionado) return;
-
-    const file = input.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const preview = file.type.startsWith('image/') ? reader.result as string : null;
-
-      this.documentos.push({
-        tipo: this.tipoDocumentoSelecionado,
-        arquivo: file,
-        preview,
-      });
-      this.tipoDocumentoSelecionado = '';
-      input.value = '';
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  enviarDocumentos() {
-    const formData = new FormData();
-    this.documentos.forEach((doc, index) => {
-      formData.append(doc.tipo, doc.arquivo);
-    });
-
-    // Simulando envio
-    console.log('Enviando documentos:', this.documentos);
-
-    alert('📤 Documentos enviados com sucesso!');
+  continuar() {
+    sessionStorage.setItem('documentos', JSON.stringify(this.documentos));
+    this.router.navigate(['/selfie']);
   }
 }
-

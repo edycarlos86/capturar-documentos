@@ -100,8 +100,8 @@ function abrirCamera() {
 
 
 
+<!--
 
- <!-- src/app/selfie/selfie.component.html -->
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-8 text-center">
@@ -122,5 +122,40 @@ function abrirCamera() {
       </div>
     </div>
   </div>
+</div>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <div class="container text-center mt-4">
+  <h3 class="mb-3">Tire uma selfie</h3>
+
+  <div *ngIf="!selfieTirada">
+    <video #videoElement autoplay playsinline class="border border-dark rounded w-100" style="max-width: 400px;"></video>
+    <button class="btn btn-primary mt-3" (click)="tirarSelfie()">Capturar Selfie</button>
+  </div>
+
+  <div *ngIf="selfieTirada">
+    <img [src]="selfieTirada" class="img-fluid border rounded mb-3" style="max-width: 400px;">
+    <br>
+    <button class="btn btn-warning me-2" (click)="recarregarCamera()">Refazer</button>
+    <button class="btn btn-success" (click)="continuar()">Confirmar e Continuar</button>
+  </div>
+
+  <canvas #canvas class="d-none"></canvas>
 </div>
 

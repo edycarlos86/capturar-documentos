@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/* import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UploadService } from '../services/upload.service'; // ajuste o path se necessário
 
@@ -47,3 +47,57 @@ export class ConfirmacaoComponent implements OnInit {
     alert('Enviado com sucesso!');
   }
 }
+ */
+
+
+
+
+
+
+
+
+
+
+// confirmacao.component.ts
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-confirmacao',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './confirmacao.component.html'
+})
+export class ConfirmacaoComponent {
+  selfie: string | null = null;
+  documentos: any = {};
+  urlGerada: string = '';
+
+  ngOnInit() {
+    this.selfie = sessionStorage.getItem('selfie');
+    const docs = sessionStorage.getItem('documentos');
+    this.documentos = docs ? JSON.parse(docs) : {};
+
+    this.gerarUrl();
+  }
+
+  gerarUrl() {
+    const params = [
+      `cnh=${this.documentos.cnh ? 'S' : 'N'}`,
+      `rg=${this.documentos.rg ? 'S' : 'N'}`,
+      `selfie=${this.selfie ? 'S' : 'N'}`,
+      `contratosocial=${this.documentos.contratosocial ? 'S' : 'N'}`,
+      `cartaocnpj=${this.documentos.cartaocnpj ? 'S' : 'N'}`,
+      `ataeleicao=${this.documentos.ataeleicao ? 'S' : 'N'}`,
+      `identificadorcliente=sadksajdksajdksadjsakjjd`
+    ];
+
+    this.urlGerada = params.join('&');
+  }
+
+  enviar() {
+    alert('Dados enviados com sucesso!');
+    // Você pode enviar a URL para a API aqui
+  }
+}
+

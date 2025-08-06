@@ -110,58 +110,64 @@ export class SelfieComponent implements OnInit {
 
 
 
-// src/app/selfie/selfie.component.ts
+// selfie.component.ts
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { WebcamModule } from 'ngx-webcam';
 
 @Component({
   selector: 'app-selfie',
-  templateUrl: './selfie.component.html',
-  styleUrls: ['./selfie.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, WebcamModule],
+  templateUrl: './selfie.component.html'
 })
-export class SelfieComponent implements OnInit {
-  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+export class SelfieComponent {
+  @ViewChild('videoElement', { static: true }) videoElement!: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
 
-  stream!: MediaStream;
   selfieTirada: string | null = null;
+  stream!: MediaStream;
 
-  ngOnInit(): void {
-    this.iniciarCamera();
+  constructor(private router: Router) {}
+
+  ngAfterViewInit() {
+    this.abrirCamera();
   }
 
-  iniciarCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+  abrirCamera() {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
       .then(stream => {
         this.stream = stream;
         this.videoElement.nativeElement.srcObject = stream;
-        this.videoElement.nativeElement.play();
-        this.selfieTirada = null;
       })
-      .catch(error => {
-        console.error('Erro ao acessar a câmera:', error);
-        alert('Erro ao acessar a câmera. Verifique permissões.');
+      .catch(err => {
+        alert('Erro ao acessar a câmera: ' + err.message);
       });
   }
 
   tirarSelfie() {
     const video = this.videoElement.nativeElement;
     const canvas = this.canvas.nativeElement;
-
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    this.selfieTirada = canvas.toDataURL('image/png');
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      this.selfieTirada = canvas.toDataURL('image/jpeg');
+    }
+
+    this.stream.getTracks().forEach(track => track.stop());
   }
 
   recarregarCamera() {
-    if (this.stream) {
-      this.stream.getTracks().forEach(track => track.stop());
-    }
-    this.iniciarCamera();
+    this.selfieTirada = null;
+    this.abrirCamera();
+  }
+
+  continuar() {
+    sessionStorage.setItem('selfie', this.selfieTirada!);
+    this.router.navigate(['/confirmacao']);
   }
 }
-

@@ -1,4 +1,4 @@
-<!-- src/app/documentos/documentos.component.html -->
+<!--
 <div class="container py-5">
   <h2 class="text-center mb-4">📑 Enviar Documentos</h2>
 
@@ -35,4 +35,44 @@
       </button>
     </div>
   </div>
+</div>
+ -->
+
+
+
+
+
+
+
+
+
+ <div class="container mt-4">
+  <h3 class="mb-3">Selecione os documentos que você vai enviar:</h3>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="rg" [(ngModel)]="documentos.rg">
+    <label class="form-check-label" for="rg">RG</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="cnh" [(ngModel)]="documentos.cnh">
+    <label class="form-check-label" for="cnh">CNH</label>
+  </div>
+
+  <div class="form-check mt-3">
+    <input class="form-check-input" type="checkbox" id="cartaocnpj" [(ngModel)]="documentos.cartaocnpj">
+    <label class="form-check-label" for="cartaocnpj">Cartão CNPJ</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="contratosocial" [(ngModel)]="documentos.contratosocial">
+    <label class="form-check-label" for="contratosocial">Contrato Social</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="ataeleicao" [(ngModel)]="documentos.ataeleicao">
+    <label class="form-check-label" for="ataeleicao">Ata de Eleição</label>
+  </div>
+
+  <button class="btn btn-success mt-4" (click)="continuar()">Continuar</button>
 </div>
