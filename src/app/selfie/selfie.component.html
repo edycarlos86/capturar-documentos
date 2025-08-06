@@ -1,0 +1,126 @@
+<!-- <div class="container py-5 text-center">
+  <h2 class="mb-4">Tire uma Selfie</h2>
+
+  <div *ngIf="cameraAtiva" class="mb-3">
+    <webcam [trigger]="triggerObservable"
+            (imageCapture)="capturarImagem($event)"
+            class="rounded border"
+            [videoOptions]="{ width: 320, height: 240 }">
+    </webcam>
+  </div>
+
+  <div *ngIf="webcamImage">
+    <h5 class="mb-3">Selfie Capturada:</h5>
+    <img [src]="webcamImage.imageAsDataUrl" class="img-thumbnail mb-3" width="320">
+  </div>
+
+  <div class="d-flex justify-content-center gap-3">
+    <button *ngIf="cameraAtiva" (click)="tirarFoto()" class="btn btn-primary">
+      Capturar Selfie
+    </button>
+
+    <button *ngIf="webcamImage" (click)="refazerFoto()" class="btn btn-secondary">
+      Refazer
+    </button>
+
+    <button *ngIf="webcamImage" (click)="continuar()" class="btn btn-success">
+      Continuar
+    </button>
+  </div>
+</div>
+ -->
+
+
+
+
+
+
+<!--  <div class="container py-5 text-center">
+  <h2 class="mb-4">Tire uma Selfie</h2>
+
+  <div *ngIf="cameraError" class="alert alert-danger">
+    {{ cameraError }}
+  </div>
+
+  <div *ngIf="cameraAtiva && !cameraError" class="mb-3">
+    <webcam [trigger]="triggerObservable"
+            (imageCapture)="capturarImagem($event)"
+            (initError)="handleInitError($event)"
+            class="rounded border"
+            [videoOptions]="{ facingMode: 'user', width: 320, height: 240 }">
+    </webcam>
+  </div>
+
+  <div *ngIf="webcamImage">
+    <h5 class="mb-3">Selfie Capturada:</h5>
+    <img [src]="webcamImage.imageAsDataUrl" class="img-thumbnail mb-3" width="320">
+  </div>
+
+  <div class="d-flex justify-content-center gap-3">
+    <button *ngIf="cameraAtiva && !cameraError" (click)="tirarFoto()" class="btn btn-primary">
+      Capturar Selfie
+    </button>
+
+    <button *ngIf="webcamImage" (click)="refazerFoto()" class="btn btn-secondary">
+      Refazer
+    </button>
+
+    <button *ngIf="webcamImage" (click)="continuar()" class="btn btn-success">
+      Continuar
+    </button>
+  </div>
+</div>
+
+
+<button onclick="abrirCamera()">Testar câmera</button>
+
+<script>
+function abrirCamera() {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      alert('✅ Câmera funcionando!');
+    })
+    .catch(err => {
+      alert('🚫 Erro ao acessar a câmera: ' + err.name + '\n' + err.message);
+    });
+}
+</script>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- src/app/selfie/selfie.component.html -->
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <h2 class="mb-4">Tire uma selfie</h2>
+
+      <video #videoElement class="w-100 border rounded mb-3" autoplay muted playsinline></video>
+
+      <div *ngIf="selfieTirada" class="mb-3">
+        <h5>Pré-visualização:</h5>
+        <img [src]="selfieTirada" class="img-fluid rounded border" alt="Selfie tirada" />
+      </div>
+
+      <canvas #canvas hidden></canvas>
+
+      <div class="d-flex justify-content-center gap-3 mt-3">
+        <button class="btn btn-success" (click)="tirarSelfie()">📸 Tirar Selfie</button>
+        <button class="btn btn-warning" (click)="recarregarCamera()">🔄 Recarregar Câmera</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,40 @@
+/* src/app/welcome/welcome.component.css */
+
+:host {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  animation: fadeIn 1s ease-out;
+  border: none;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.btn-primary {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

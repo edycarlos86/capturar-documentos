@@ -1,0 +1,21 @@
+ <!-- Começando com o componente: welcome.component.html 
+<div class="container text-center py-5">
+  <h1 class="mb-4 fw-bold">Verificação de Identidade</h1>
+  <p class="mb-4">Para sua segurança, vamos solicitar alguns documentos e uma selfie.</p>
+  <a routerLink="/documentos" class="btn btn-primary btn-lg px-5">Iniciar</a>
+</div>
+ -->
+
+
+<!-- src/app/welcome/welcome.component.html -->
+<div class="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+  <div class="card p-5 shadow-lg rounded-4" style="max-width: 500px; width: 100%;">
+    <h1 class="mb-4 text-primary">📸 Identificação Digital</h1>
+    <p class="mb-4 fs-5 text-muted">
+      Para sua segurança, vamos solicitar alguns documentos e uma selfie..
+    </p>
+    <button (click)="iniciarCadastro()" class="btn btn-primary btn-lg w-100">
+      Iniciar Cadastro
+    </button>
+  </div>
+</div>

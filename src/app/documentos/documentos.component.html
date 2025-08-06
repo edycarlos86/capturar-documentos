@@ -1,0 +1,38 @@
+<!-- src/app/documentos/documentos.component.html -->
+<div class="container py-5">
+  <h2 class="text-center mb-4">📑 Enviar Documentos</h2>
+
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Tipo de Documento:</label>
+      <select class="form-select mb-2" [(ngModel)]="tipoDocumentoSelecionado">
+        <option value="">Selecione</option>
+        <option *ngFor="let tipo of tipos" [value]="tipo.value">{{ tipo.label }}</option>
+      </select>
+
+      <input type="file" class="form-control" accept="image/*,.pdf" (change)="aoSelecionarArquivo($event)" [disabled]="!tipoDocumentoSelecionado" />
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card mb-4" *ngFor="let doc of documentos">
+        <div class="card-body d-flex align-items-center gap-4">
+          <div *ngIf="doc.preview; else arquivoPadrao">
+            <img [src]="doc.preview" alt="Preview" class="img-thumbnail" style="max-height: 120px;">
+          </div>
+          <ng-template #arquivoPadrao>
+            <p><strong>Arquivo:</strong> {{ doc.arquivo.name }}</p>
+          </ng-template>
+          <div>
+            <p class="mb-0"><strong>Tipo:</strong> {{ doc.tipo }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-100" (click)="enviarDocumentos()" [disabled]="documentos.length === 0">
+        📤 Enviar Todos os Documentos
+      </button>
+    </div>
+  </div>
+</div>

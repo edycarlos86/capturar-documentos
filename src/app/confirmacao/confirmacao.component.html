@@ -1,0 +1,46 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Confirme os Dados</h2>
+
+  <div class="row mb-4 text-center">
+    <div class="col-md-4" *ngIf="selfie">
+      <h6 class="fw-bold">Selfie</h6>
+      <img [src]="selfie" class="img-thumbnail mb-3" width="250">
+    </div>
+
+    <div class="col-md-4" *ngIf="documentos.rg">
+      <h6 class="fw-bold">RG</h6>
+      <img [src]="documentos.rg" class="img-thumbnail mb-3" width="250">
+    </div>
+
+    <div class="col-md-4" *ngIf="documentos.cnh">
+      <h6 class="fw-bold">CNH</h6>
+      <img [src]="documentos.cnh" class="img-thumbnail mb-3" width="250">
+    </div>
+
+    <div class="col-md-4" *ngIf="documentos.cartaocnpj">
+      <h6 class="fw-bold">Cartão CNPJ / MEI</h6>
+      <img [src]="documentos.cartaocnpj" class="img-thumbnail mb-3" width="250">
+    </div>
+
+    <div class="col-md-4" *ngIf="documentos.contratosocial">
+      <h6 class="fw-bold">Contrato Social</h6>
+      <img [src]="documentos.contratosocial" class="img-thumbnail mb-3" width="250">
+    </div>
+
+    <div class="col-md-4" *ngIf="documentos.ataeleicao">
+      <h6 class="fw-bold">Ata de Eleição</h6>
+      <img [src]="documentos.ataeleicao" class="img-thumbnail mb-3" width="250">
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h5 class="fw-bold">URL Gerada:</h5>
+    <code class="d-block bg-light p-3 rounded">{{ urlGerada }}</code>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-success btn-lg px-5" [disabled]="!selfie" (click)="enviar()">
+      Enviar para Análise
+    </button>
+  </div>
+</div>
